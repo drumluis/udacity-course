@@ -22,6 +22,7 @@ class Category extends StatelessWidget {
 
   /// A [Category] saves the name of the Category (e.g. 'Length'), its color for
   /// the UI, and the icon that represents it (e.g. a ruler).
+  // ignore: todo
   // TODO: You'll need the name, color, and iconLocation from main.dart
   const Category({
     Key key,
@@ -43,6 +44,7 @@ class Category extends StatelessWidget {
   // See https://docs.flutter.io/flutter/material/Theme-class.html
 
   Widget build(BuildContext context) {
+    // ignore: todo
     // TODO: Build the custom widget here, referring to the Specs.
     return Material(
       color: Colors.transparent,
@@ -71,7 +73,7 @@ class Category extends StatelessWidget {
                   child: Text(
                     name,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline1,
+                    style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
               ],
