@@ -88,9 +88,10 @@ class _CategoryRouteState extends State<CategoryRoute> {
       _currentCategory = category;
     });
   }
-
-  Widget _buildCategoryWidgets() {
-    return ListView.builder(
+  /// For portrait, we use a [ListView]. For landscape, we use a [GridView].
+  Widget _buildCategoryWidgets(Orientation deviceOrientation) {
+  if(deviceOrientation == Orientation.portrait) {
+  return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
         return CategoryTile(
           category: _categories[index],
@@ -99,6 +100,18 @@ class _CategoryRouteState extends State<CategoryRoute> {
       },
       itemCount: _categories.length,
     );
+  } else {
+    return GridView.count(
+      crossAxisCount: 2,
+      childAspectRatio: 3.0,
+      children: _categories.map((Category c) {
+        return CategoryTile(
+            category: c,
+            onTap: _onCategoryTap,
+          );
+      }).toList(),
+      );
+  }
   }
 
   List<Unit> _retrieveUnitList(String categoryName) {
@@ -113,13 +126,16 @@ class _CategoryRouteState extends State<CategoryRoute> {
 
   @override
   Widget build(BuildContext context) {
+        // Based on the device size, figure out how to best lay out the list
+    // You can also use MediaQuery.of(context).size to calculate the orientation
+   assert(debugCheckHasMediaQuery(context));
     final listView = Padding(
       padding: EdgeInsets.only(
         left: 8.0,
         right: 8.0,
         bottom: 48.0,
       ),
-      child: _buildCategoryWidgets(),
+      child: _buildCategoryWidgets(MediaQuery.of(context).orientation),
     );
 
     return Backdrop(
